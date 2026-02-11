@@ -18,7 +18,7 @@ public class ContactFormController {
     @GetMapping("/form")
     public String showForm(Model model) {
 
-        // リダイレクト時に値がなければ初期化
+        // リダイレクト時にデータがなければ初期化
         if (!model.containsAttribute("contactForm")) {
             model.addAttribute("contactForm", new ContactForm());
         }
@@ -26,35 +26,27 @@ public class ContactFormController {
         return "contactFormView";
     }
 
-    // 確認画面表示
+    // 確認画面表示（URLは /confirm）
     @PostMapping("/confirm")
     public String confirm(
             @Valid ContactForm contactForm,
             BindingResult bindingResult,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes,
+            Model model) {
 
-        // ❌ バリデーションエラー
+        // ❌ バリデーションエラー時
         if (bindingResult.hasErrors()) {
 
-            // フォームの値を保持
             redirectAttributes.addFlashAttribute("contactForm", contactForm);
-
-            // エラー情報を保持（これ超重要）
             redirectAttributes.addFlashAttribute(
-                "org.springframework.validation.BindingResult.contactForm",
-                bindingResult);
+                    "org.springframework.validation.BindingResult.contactForm",
+                    bindingResult);
 
             return "redirect:/form";
         }
 
-        // 正常時
-        redirectAttributes.addFlashAttribute("contactForm", contactForm);
-        return "redirect:/confirmView";
-    }
-
-    // 確認画面表示用
-    @GetMapping("/confirmView")
-    public String confirmView() {
-        return "confirmView";
+        // ✅ バリデーションOK時
+        model.addAttribute("contactForm", contactForm);
+        return "confirmView";   // ← URLは /confirm のまま
     }
 }
