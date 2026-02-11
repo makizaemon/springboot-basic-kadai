@@ -5,16 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 
 public class ContactForm {
 
-    // お名前（未入力NG）
     @NotBlank(message = "お名前を入力してください。")
     private String name;
 
-    // メールアドレス（未入力NG + 形式チェック）
     @NotBlank(message = "メールアドレスを入力してください。")
-    @Email(message = "メールアドレスの入力形式が正しくありません。")
+    @Email(message = "メールアドレスの形式が正しくありません。")
     private String email;
 
-    // お問い合わせ内容（未入力NG）
     @NotBlank(message = "お問い合わせ内容を入力してください。")
     private String message;
 
