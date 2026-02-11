@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>お問い合わせフォーム</title>
+<meta charset="UTF-8">
+<title>お問い合わせフォーム</title>
 </head>
 <body>
 
@@ -24,7 +24,7 @@
 
     <div>
         <label>お問い合わせ内容</label><br>
-        <textarea th:field="*{message}" cols="30" rows="10"></textarea>
+        <textarea th:field="*{message}" cols="30" rows="5"></textarea>
         <div style="color:red" th:errors="*{message}"></div>
     </div>
 
